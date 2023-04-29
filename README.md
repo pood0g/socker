@@ -13,4 +13,4 @@ i.e.
 ssh user@host -R 1080:127.0.0.1:1080
 ```
 
-All credits for go-socks5 module used here goto thinkgos and armon, all I have done is make it into a command line tool.
+All credits for go-socks5 module used here goto thinkgos for his fork and the original author armon, all I have done is make it into a command line tool.
