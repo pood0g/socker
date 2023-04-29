@@ -51,21 +51,17 @@ func main() {
 	var listnr = fmt.Sprintf("%s:%s", *iface, *port)
 	fmt.Printf("Starting SOCKS5 Proxy Listening on %s\n\n", listnr)
 
-	// set options for the server
+	// create a slice for the options passed to NewServer
 	opt := []socks5.Option{
 		socks5.WithLogger(socks5.NewLogger(log.New(os.Stdout, "socks5: ", log.LstdFlags))),
-		nil,
 	}
-
-	opt = opt[:1]
 
 	// Create a SOCKS5 server
 	if len(*password) > 0 {
 		fmt.Printf("Auth Mode enabled...\n\tUsername: %s\n\n", *username)
 		creds := socks5.StaticCredentials{*username: *password}
 		auth := socks5.UserPassAuthenticator{Credentials: creds}
-		opt = opt[:2]
-		opt[1] = socks5.WithAuthMethods([]socks5.Authenticator{auth})
+		opt = append(opt, socks5.WithAuthMethods([]socks5.Authenticator{auth}))
 	}
 
 	server := socks5.NewServer(opt...)
